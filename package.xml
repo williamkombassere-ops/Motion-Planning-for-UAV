@@ -3,7 +3,7 @@
 <package format="3">
   <name>motion_planning_project</name>
   <version>0.1.0</version>
-  <description>Projet de motion planning sous ROS2 + Gazebo (planificateur A* sur grille d'occupation).</description>
+  <description>Motion planning 2D (A*) pour le Crazyflie, basé sur la carte du simple_mapper (crazyflie_ros2_multiranger).</description>
   <maintainer email="you@example.com">Ton Nom</maintainer>
   <license>MIT</license>
 
@@ -12,9 +12,8 @@
   <exec_depend>rclpy</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

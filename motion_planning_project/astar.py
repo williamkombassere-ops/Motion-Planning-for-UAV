@@ -1,10 +1,10 @@
 """
-Implémentation d'un planificateur A* sur grille d'occupation (OccupancyGrid).
+Planificateur A* sur grille d'occupation 2D (nav_msgs/OccupancyGrid).
 
-Cette classe est volontairement indépendante de ROS afin de pouvoir être
-testée unitairement sans lancer de node. Le node ROS2 (planner_node.py)
-se charge de la conversion OccupancyGrid <-> grille numpy et de la
-publication du chemin résultant.
+Indépendant de ROS pour rester testable unitairement sans lancer de node.
+Utilisé ici pour planifier le déplacement horizontal du Crazyflie à
+altitude constante, sur la carte générée par le simple_mapper
+(package crazyflie_ros2_multiranger).
 """
 
 import heapq
@@ -24,35 +24,37 @@ class _PQItem:
 class AStarPlanner:
     """Planificateur A* 8-connexe sur une grille 2D.
 
-    grid: liste de listes (ou array 2D) où 0 = libre, >0 = occupé.
+    grid: liste de listes où 0 = libre, >0 = occupé, -1 = inconnu (traité comme occupé
+    par défaut, car on ne veut pas voler dans une zone jamais vue par le multiranger).
     """
 
-    # Déplacements possibles (8-connexité) avec leur coût
     _MOVES = [
         (-1, 0, 1.0), (1, 0, 1.0), (0, -1, 1.0), (0, 1, 1.0),
         (-1, -1, math.sqrt(2)), (-1, 1, math.sqrt(2)),
         (1, -1, math.sqrt(2)), (1, 1, math.sqrt(2)),
     ]
 
-    def __init__(self, grid, occupied_threshold: int = 50):
+    def __init__(self, grid, occupied_threshold: int = 50, treat_unknown_as_occupied: bool = True):
         self.grid = grid
         self.height = len(grid)
         self.width = len(grid[0]) if self.height > 0 else 0
         self.occupied_threshold = occupied_threshold
+        self.treat_unknown_as_occupied = treat_unknown_as_occupied
 
     def _is_free(self, cell: Cell) -> bool:
         x, y = cell
         if not (0 <= x < self.width and 0 <= y < self.height):
             return False
-        return self.grid[y][x] < self.occupied_threshold
+        value = self.grid[y][x]
+        if value < 0:  # inconnu dans une OccupancyGrid ROS
+            return not self.treat_unknown_as_occupied
+        return value < self.occupied_threshold
 
     @staticmethod
     def _heuristic(a: Cell, b: Cell) -> float:
-        # Distance euclidienne (admissible pour un déplacement 8-connexe)
         return math.hypot(a[0] - b[0], a[1] - b[1])
 
     def plan(self, start: Cell, goal: Cell) -> Optional[List[Cell]]:
-        """Retourne le chemin [start, ..., goal] ou None si aucun chemin trouvé."""
         if not self._is_free(start) or not self._is_free(goal):
             return None
 
@@ -85,7 +87,7 @@ class AStarPlanner:
                     f_score = tentative_g + self._heuristic(neighbor, goal)
                     heapq.heappush(open_heap, _PQItem(f_score, neighbor))
 
-        return None  # Aucun chemin trouvé
+        return None
 
     @staticmethod
     def _reconstruct_path(came_from, current: Cell) -> List[Cell]:

@@ -14,18 +14,18 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
-        (os.path.join('share', package_name, 'worlds'), glob('worlds/*.world')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='Ton Nom',
     maintainer_email='you@example.com',
-    description='Projet de motion planning sous ROS2 + Gazebo (planificateur A*).',
+    description='Motion planning 2D (A*) pour le Crazyflie.',
     license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'planner_node = motion_planning_project.planner_node:main',
+            'path_follower_node = motion_planning_project.path_follower_node:main',
         ],
     },
 )

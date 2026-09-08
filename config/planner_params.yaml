@@ -1,3 +1,16 @@
 planner_node:
   ros__parameters:
-    occupied_threshold: 50   # seuil (0-100) au-dessus duquel une cellule est considérée occupée
+    map_topic: /crazyflie/map
+    map_frame: map
+    robot_frame: crazyflie/base_link
+    occupied_threshold: 50
+    treat_unknown_as_occupied: true
+
+path_follower_node:
+  ros__parameters:
+    cmd_vel_topic: /cmd_vel
+    map_frame: map
+    robot_frame: crazyflie/base_link
+    waypoint_tolerance: 0.15
+    max_linear_speed: 0.3
+    control_rate_hz: 10.0
