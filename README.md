@@ -8,9 +8,9 @@ Planification de trajectoire et suivi pour un drone Crazyflie (2D, ROS2).
 | ![A*](media/astar.gif) | ![RRT*](media/rrt_star.gif) |
 
 ## Controllers
-| Pure Pursuit |
-|:--:|
-| ![Pure Pursuit](media/pure_pursuit.gif) |
+| Pure Pursuit | PID |
+|:--:|:--:|
+| ![Pure Pursuit](media/pure_pursuit.gif) | ![PID](media/pid.gif) |
 
 ## Paper
 - [A Formal Basis for the Heuristic Determination of Minimum Cost Paths (A*)](https://doi.org/10.1109/TSSC.1968.300136)
