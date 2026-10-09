@@ -3,9 +3,9 @@
 Planification de trajectoire et suivi pour un drone Crazyflie (2D, ROS2).
 
 ## Planners
-| A* |
-|:--:|
-| ![A*](media/astar.gif) |
+| A* | RRT* |
+|:--:|:--:|
+| ![A*](media/astar.gif) | ![RRT*](media/rrt_star.gif) |
 
 ## Controllers
 À venir : Pure Pursuit, PID, LQR, MPC.
