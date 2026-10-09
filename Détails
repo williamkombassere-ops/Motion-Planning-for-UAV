@@ -1,0 +1,13 @@
+Algorithmes
+A*
+Dijkstra
+RRT
+RRT*
+Hybrid A*
+Démo
+
+Robot qui rejoint un objectif tout en évitant des obstacles.
+
+Bonus
+
+Animation RViz.
