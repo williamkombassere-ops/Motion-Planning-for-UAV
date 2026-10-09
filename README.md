@@ -15,3 +15,6 @@ Planification de trajectoire et suivi pour un drone Crazyflie (2D, ROS2).
 ## Paper
 - [A Formal Basis for the Heuristic Determination of Minimum Cost Paths (A*)](https://doi.org/10.1109/TSSC.1968.300136)
 - [Sampling-based Algorithms for Optimal Motion Planning (RRT*)](https://arxiv.org/abs/1105.1186)
+- [Implementation of the Pure Pursuit Path Tracking Algorithm (Pure Pursuit)](https://www.ri.cmu.edu/publications/implementation-of-the-pure-pursuit-path-tracking-algorithm/)
+- [The Future of PID Control (PID)](https://doi.org/10.1016/S0967-0661(01)00062-4)
+- [Introduction to Optimal Control (LQR)](https://cel.archives-ouvertes.fr/hal-02987731v1)
